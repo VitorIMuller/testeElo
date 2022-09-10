@@ -22,10 +22,10 @@ const recuperarSaldosPorConta = (lancamentos) => {
          if (item) {
             const index = newArr.indexOf(item);
             if (index !== -1) {
-               newArr[index] = { cpf: item.cpf, valor: item.valor + lancamento.valor };
+               newArr[index] = { cpf: item.cpf, valor: parseFloat((parseFloat(item.valor) + parseFloat(lancamento.valor)).toFixed(2)) };
             }
          } else {
-            newArr.push({ cpf: lancamento.cpf, valor: lancamento.valor })
+            newArr.push({ cpf: lancamento.cpf, valor: parseFloat(parseFloat(lancamento.valor).toFixed(2)) })
          }
       })
    }
@@ -64,10 +64,10 @@ const recuperarMaioresSaldos = (lancamentos) => {
          if (item) {
             const index = newArr.indexOf(item);
             if (index !== -1) {
-               newArr[index] = { cpf: item.cpf, valor: item.valor + lancamento.valor };
+               newArr[index] = { cpf: item.cpf, valor: parseFloat((parseFloat(item.valor) + parseFloat(lancamento.valor)).toFixed(2)) };
             }
          } else {
-            newArr.push({ cpf: lancamento.cpf, valor: lancamento.valor })
+            newArr.push({ cpf: lancamento.cpf, valor: parseFloat(parseFloat(lancamento.valor).toFixed(2)) })
          }
       })
    }
@@ -77,7 +77,7 @@ const recuperarMaioresSaldos = (lancamentos) => {
       if (a.valor < b.valor) return 1;
       return 0;
    });
-
+   console.log(newArr)
    return newArr.slice(0, 3)
 }
 
@@ -96,9 +96,8 @@ const recuperarMaioresMedias = (lancamentos) => {
       }
    });
 
-   const medias = [].map.call(acum, i => ({ cpf: i.cpf, valor: i.soma / i.valores }))
+   const medias = [].map.call(acum, i => ({ cpf: i.cpf, valor: parseFloat((i.soma / i.valores).toFixed(2)) }))
 
-   console.log(medias);
 
    medias.sort((a, b) => {
       if (a.valor > b.valor) return -1;
